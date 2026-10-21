@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#090b10">
+<meta name="author" content="StaticQuasar931">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<title>Cheese Chompers 3D Unblocked | StaticQuasar931</title>
+<meta name="description" content="Play Cheese Chompers 3D unblocked in your browser on StaticQuasar931.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StaticQuasar931">
+<meta property="og:title" content="Cheese Chompers 3D Unblocked | StaticQuasar931">
+<meta property="og:description" content="Play Cheese Chompers 3D online on StaticQuasar931.">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/StaticQuasar931/Images@main/icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cheese Chompers 3D Unblocked | StaticQuasar931">
+<meta name="twitter:description" content="Play Cheese Chompers 3D online in your browser on StaticQuasar931.">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/StaticQuasar931/Images@main/icon.png">
+
+<style>
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;overflow:hidden;
+  background:#080a0e;color:#fff;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+#unity-container{position:fixed;inset:0;background:#000}
+#unity-canvas{display:block;width:100%;height:100%;outline:none;background:#000}
+
+/* LOADING SCREEN */
+#unity-loading-bar{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(ellipse at 50% 38%,rgba(91,117,144,.11),transparent 55%),
+    #090b10;
+  transition:opacity .35s ease;
+}
+#unity-loading-bar.done{opacity:0;pointer-events:none}
+#loader{
+  width:min(440px,100%);
+  text-align:center;
+}
+#loader-icon{
+  width:66px;height:66px;margin:0 auto 24px;
+  display:grid;place-items:center;
+  border:1px solid #323c49;border-radius:19px;
+  background:linear-gradient(145deg,#252d37,#11171e);
+  box-shadow:0 12px 35px #0006;
+  font-size:32px;
+}
+#loader-title{
+  margin:0;
+  font-size:clamp(26px,5vw,33px);
+  font-weight:800;
+  letter-spacing:-1.2px;
+}
+#loader-subtitle{
+  margin:10px 0 34px;
+  color:#87919f;
+  font-size:13px;
+  letter-spacing:.2px;
+}
+#loader-status-row{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;margin-bottom:12px;text-align:left;
+}
+#loadingText{
+  color:#e1e8f0;font-size:13px;font-weight:600;
+  overflow-wrap:anywhere;
+}
+#loadingPercent{
+  color:#dfe8f2;font-size:14px;font-weight:800;
+  font-variant-numeric:tabular-nums;
+}
+#unity-progress-bar-empty{
+  height:7px;width:100%;
+  background:#252d38;border-radius:100px;overflow:hidden;
+}
+#unity-progress-bar-full{
+  width:0%;height:100%;border-radius:inherit;
+  background:linear-gradient(90deg,#8aafda,#b9d9ff);
+  box-shadow:0 0 15px #9ac4ff50;
+  transition:width .18s linear;
+}
+#loader-stats{
+  display:flex;justify-content:space-between;
+  gap:12px;margin-top:13px;
+  color:#8793a1;font-size:12px;
+  font-variant-numeric:tabular-nums;
+}
+#loader-stage{
+  display:flex;justify-content:center;align-items:center;
+  gap:8px;margin-top:37px;
+  color:#74808e;font-size:11px;
+  letter-spacing:1.3px;text-transform:uppercase;
+}
+#loader-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#a9cfff;
+  box-shadow:0 0 12px #a9cfff;
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{50%{opacity:.3;transform:scale(.7)}}
+#loadingError{
+  display:none;
+  margin-top:23px;padding:14px;
+  background:#27171b;border:1px solid #6b323b;
+  border-radius:10px;color:#ffb5bf;
+  font-size:12px;line-height:1.6;
+  overflow-wrap:anywhere;
+}
+#retryButton{
+  display:none;margin-top:15px;padding:11px 25px;
+  background:#dce9f8;color:#101720;
+  border:0;border-radius:9px;
+  font:700 13px inherit;cursor:pointer;
+}
+#unity-warning{
+  position:fixed;top:70px;left:50%;transform:translateX(-50%);
+  z-index:1000;width:min(700px,calc(100% - 32px));
+  text-align:center;pointer-events:none;
+}
+
+/* STATIC VISUAL SEO */
+#staticMenu{
+  position:fixed;top:12px;left:12px;z-index:2147483640;
+  display:flex;align-items:center;gap:10px;padding:10px 14px;
+  border:1px solid rgba(94,225,255,.35);
+  border-radius:12px;
+  background:linear-gradient(135deg,rgba(20,20,28,.9),rgba(20,20,28,.6));
+  box-shadow:0 0 12px rgba(94,225,255,.65),0 0 32px rgba(155,255,183,.35);
+  backdrop-filter:blur(8px);
+  font:700 14px Arial,sans-serif;
+}
+#staticMenu a{color:#5ee1ff;text-decoration:none;font-weight:800}
+#staticMenu a:hover{text-decoration:underline}
+#closeStaticMenu{
+  padding:2px 6px;border:1px solid #ffffff26;
+  border-radius:6px;background:#ffffff10;color:#ff5555;
+  font:800 14px Arial;cursor:pointer;
+}
+#staticSlideMenu{
+  position:fixed;right:24px;bottom:24px;z-index:2147483640;
+  width:100px;height:100px;opacity:0;pointer-events:none;
+  transform:translateX(140px) scale(.96);
+}
+#staticSlideMenu a,#staticSlideMenu img{display:block;width:100%;height:100%}
+#staticSlideMenu img{object-fit:contain;border:0}
+.slide-in{animation:slideIn 2s ease forwards}
+.slide-out{animation:slideOut 2s ease forwards}
+.visual-seo-hidden{display:none!important}
+@keyframes slideIn{
+  from{opacity:0;transform:translateX(140px) scale(.96)}
+  to{opacity:1;transform:translateX(0) scale(1)}
+}
+@keyframes slideOut{
+  from{opacity:1;transform:translateX(0) scale(1)}
+  to{opacity:0;transform:translateX(140px) scale(.96)}
+}
+@media(max-width:600px){
+  #staticMenu{top:8px;left:8px;padding:8px 10px;font-size:12px}
+  #staticSlideMenu{right:14px;bottom:14px;width:82px;height:82px}
+}
+</style>
+</head>
+<body>
+
+<div id="unity-container">
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+
+<div id="unity-loading-bar">
+  <div id="loader">
+    <div id="loader-icon">🧀</div>
+    <h1 id="loader-title">Cheese Chompers 3D</h1>
+    <p id="loader-subtitle">Getting everything ready for you</p>
+
+    <div id="loader-status-row">
+      <span id="loadingText">Connecting to game files</span>
+      <span id="loadingPercent">0%</span>
+    </div>
+
+    <div id="unity-progress-bar-empty">
+      <div id="unity-progress-bar-full"></div>
+    </div>
+
+    <div id="loader-stats">
+      <span id="fileCount">0 / 13 files</span>
+      <span id="downloadSize">0.0 MiB downloaded</span>
+    </div>
+
+    <div id="loader-stage">
+      <span id="loader-dot"></span>
+      <span id="stageText">Preparing download</span>
+    </div>
+
+    <div id="loadingError"></div>
+    <button id="retryButton" type="button" onclick="location.reload()">
+      Try again
+    </button>
+  </div>
+</div>
+
+<div id="unity-warning"></div>
+
+<nav id="staticMenu" aria-label="StaticQuasar931 menu">
+  <a href="https://sites.google.com/view/staticquasar931/gm3z?utm_source=visualseo_cheese-chompers-3d"
+     target="_blank" rel="noopener noreferrer">More Unblocked Games by Static</a>
+  <button id="closeStaticMenu" type="button" aria-label="Hide menu">✕</button>
+</nav>
+
+<div id="staticSlideMenu">
+  <a id="staticSlideLink"
+     href="https://sites.google.com/view/staticquasar931/google-form?utm_source=visualseo_cheese-chompers-3d"
+     target="_blank" rel="noopener noreferrer">
+    <img id="staticSlideImage"
+         src="https://cdn.jsdelivr.net/gh/StaticQuasar931/Images@main/GoogleForm.png"
+         alt="StaticQuasar931 Google Form">
+  </a>
+</div>
+
+<script>
+"use strict";
+
+console.log("StaticQuasar931 Cheese Chompers 3D");
+
+const ASSET_BASE = new URL("./", window.location.href).href;
+const BUILD="Build/";
+const NAME="CheeseChompers3dWebUpdate";
+const TOTAL_PARTS=13;
+const PART_SIZE=10485760;
+const RETRIES=5;
+
+const $=id=>document.getElementById(id);
+const canvas=$("unity-canvas");
+const bar=$("unity-loading-bar");
+const fill=$("unity-progress-bar-full");
+const text=$("loadingText");
+const percent=$("loadingPercent");
+const count=$("fileCount");
+const size=$("downloadSize");
+const stage=$("stageText");
+
+let completedParts=0;
+let completedBytes=0;
+let activeBytes=new Map();
+let totalExpectedBytes=0;
+let lastPercent=0;
+
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const mib=bytes=>(bytes/1048576).toFixed(1);
+
+function progress(value){
+  lastPercent=Math.max(lastPercent,Math.min(100,value));
+  fill.style.width=lastPercent+"%";
+  percent.textContent=Math.floor(lastPercent)+"%";
+}
+
+function updateStats(){
+  const inFlight=[...activeBytes.values()].reduce((a,b)=>a+b,0);
+  count.textContent=completedParts+" / "+TOTAL_PARTS+" files";
+  size.textContent=mib(completedBytes+inFlight)+" MiB downloaded";
+}
+
+function showError(error){
+  console.error("[Cheese Chompers 3D]",error);
+  text.textContent="Unable to load game";
+  stage.textContent="Download interrupted";
+  $("loader-dot").style.background="#ff8996";
+  $("loadingError").style.display="block";
+  $("loadingError").textContent=error.message||String(error);
+  $("retryButton").style.display="inline-block";
+}
+
+function unityShowBanner(message,type){
+  const el=document.createElement("div");
+  el.textContent=message;
+  el.style.cssText=
+    "padding:12px;margin:6px;border-radius:8px;color:white;background:"+
+    (type==="error"?"#a00000":"#b98a00");
+  $("unity-warning").appendChild(el);
+  if(type!=="error")setTimeout(()=>el.remove(),5000);
+}
+
+function badResponse(bytes){
+  if(bytes.length<1024)return true;
+
+  const preview=new TextDecoder()
+    .decode(bytes.slice(0,512))
+    .toLowerCase();
+
+  return (
+    preview.includes("429: too many requests")||
+    preview.includes("too many requests")||
+    preview.includes("rate limit exceeded")||
+    preview.includes("<!doctype html")||
+    preview.includes("<html")||
+    preview.includes("github rate limit")
+  );
+}
+
+/*
+  JSDELIVR ONLY.
+  Detects rate-limit responses even when they incorrectly
+  arrive as HTTP 200, then retries the same CDN.
+*/
+async function downloadPart(path,label,key){
+  const url=ASSET_BASE+path;
+  let lastError;
+
+  for(let attempt=1;attempt<=RETRIES;attempt++){
+    activeBytes.set(key,0);
+    updateStats();
+
+    try{
+      if(attempt>1){
+        text.textContent="Retrying "+label;
+        stage.textContent="Retry "+attempt+" of "+RETRIES;
+      }
+
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),90000);
+
+      let response;
+      try{
+        response=await fetch(url,{
+          cache:attempt===1?"default":"reload",
+          signal:controller.signal
+        });
+
+        if(!response.ok){
+          throw new Error("HTTP "+response.status);
+        }
+
+        let buffer;
+
+        if(response.body&&response.body.getReader){
+          const reader=response.body.getReader();
+          const chunks=[];
+          let received=0;
+
+          while(true){
+            const {done,value}=await reader.read();
+            if(done)break;
+
+            chunks.push(value);
+            received+=value.byteLength;
+            activeBytes.set(key,received);
+            updateStats();
+          }
+
+          buffer=new Uint8Array(received);
+          let offset=0;
+          for(const chunk of chunks){
+            buffer.set(chunk,offset);
+            offset+=chunk.byteLength;
+          }
+        }else{
+          buffer=new Uint8Array(await response.arrayBuffer());
+        }
+
+        if(badResponse(buffer)){
+          throw new Error(
+            "CDN returned an invalid response ("+
+            buffer.length+" bytes)"
+          );
+        }
+
+        console.log(
+          "[Cheese Chompers]",label,
+          buffer.byteLength,"bytes"
+        );
+
+        activeBytes.delete(key);
+        completedParts++;
+        completedBytes+=buffer.byteLength;
+
+        updateStats();
+        progress(completedParts/TOTAL_PARTS*65);
+
+        return buffer;
+
+      }finally{
+        clearTimeout(timeout);
+      }
+
+    }catch(error){
+      lastError=error;
+      activeBytes.delete(key);
+      updateStats();
+
+      console.warn(
+        "[Cheese Chompers] "+label+
+        " attempt "+attempt+"/"+RETRIES+" failed:",
+        error.message
+      );
+
+      if(attempt<RETRIES){
+        const wait=Math.min(2000*Math.pow(2,attempt-1),16000);
+        await sleep(wait);
+      }
+    }
+  }
+
+  throw new Error(
+    label+" could not be downloaded from jsDelivr after "+
+    RETRIES+" attempts. "+
+    (lastError?.message||"Unknown error")
+  );
+}
+
+async function combineParts(count,extension,label){
+  const chunks=[];
+
+  for(let i=1;i<=count;i++){
+    const path=BUILD+NAME+extension+".part"+i;
+
+    text.textContent="Downloading "+label;
+    stage.textContent="File "+i+" of "+count+" · "+label;
+
+    const chunk=await downloadPart(
+      path,
+      label+" part "+i,
+      extension+i
+    );
+
+    /*
+      Every non-final chunk is expected to be 10 MiB.
+      This catches truncated chunks that are large enough
+      to escape the generic HTML/error-response check.
+    */
+    if(i<count&&chunk.byteLength!==PART_SIZE){
+      throw new Error(
+        label+" part "+i+" has an unexpected size: "+
+        chunk.byteLength+" bytes."
+      );
+    }
+
+    chunks.push(chunk);
+  }
+
+  return new Blob(chunks,{type:"application/octet-stream"});
+}
+
+function scriptFrom(url){
+  return new Promise((resolve,reject)=>{
+    const script=document.createElement("script");
+    script.src=url;
+    script.onload=resolve;
+    script.onerror=()=>reject(new Error("Script unavailable: "+url));
+    document.body.appendChild(script);
+  });
+}
+
+async function loadUnity(){
+  try{
+    text.textContent="Downloading game files";
+    stage.textContent="Fetching game assets";
+
+    /*
+      Both groups download concurrently.
+      Files inside each group are assembled in order.
+    */
+    const [dataBlob,wasmBlob]=await Promise.all([
+      combineParts(10,".data.unityweb","Game data"),
+      combineParts(3,".wasm.unityweb","Game code")
+    ]);
+
+    text.textContent="Checking game files";
+    stage.textContent="Validating WebAssembly";
+    progress(68);
+
+    const wasmBuffer=await wasmBlob.arrayBuffer();
+    const wasmBytes=new Uint8Array(wasmBuffer);
+
+    const rawWasm=
+      wasmBytes[0]===0&&
+      wasmBytes[1]===97&&
+      wasmBytes[2]===115&&
+      wasmBytes[3]===109;
+
+    if(rawWasm&&!WebAssembly.validate(wasmBuffer)){
+      throw new Error(
+        "The assembled WebAssembly file is invalid. "+
+        "jsDelivr may have returned a damaged or incomplete chunk."
+      );
+    }
+
+    const dataUrl=URL.createObjectURL(dataBlob);
+    const wasmUrl=URL.createObjectURL(wasmBlob);
+
+    text.textContent="Preparing game engine";
+    stage.textContent="Loading Unity";
+    progress(70);
+
+    await scriptFrom(ASSET_BASE+BUILD+NAME+".loader.js");
+
+    if(typeof createUnityInstance!=="function"){
+      throw new Error("Unity loader did not initialize.");
+    }
+
+    const config={
+      dataUrl,
+      codeUrl:wasmUrl,
+      frameworkUrl:ASSET_BASE+BUILD+NAME+".framework.js.unityweb",
+      streamingAssetsUrl:ASSET_BASE+"StreamingAssets",
+      companyName:"DefaultCompany",
+      productName:"CheeseChompers 3D",
+      productVersion:"0.1",
+      showBanner:unityShowBanner
+    };
+
+    text.textContent="Starting Cheese Chompers 3D";
+    stage.textContent="Initializing game";
+
+    const instance=await createUnityInstance(
+      canvas,
+      config,
+      p=>{
+        progress(70+Math.max(0,Math.min(1,p))*30);
+        stage.textContent="Initializing game · "+Math.round(p*100)+"%";
+      }
+    );
+
+    window.unityInstance=instance;
+    progress(100);
+    text.textContent="Ready to play";
+    stage.textContent="Complete";
+
+    setTimeout(()=>{
+      bar.classList.add("done");
+      setTimeout(()=>bar.style.display="none",400);
+      canvas.focus();
+    },300);
+
+    console.log("[Cheese Chompers] Game ready");
+
+  }catch(error){
+    showError(error);
+  }
+}
+
+loadUnity();
+</script>
+
+<script>
+(function(){
+  const menu=document.getElementById("staticMenu");
+  const close=document.getElementById("closeStaticMenu");
+  const slide=document.getElementById("staticSlideMenu");
+  const link=document.getElementById("staticSlideLink");
+  const image=document.getElementById("staticSlideImage");
+
+  const slug="cheese-chompers-3d";
+  const key="sq931_staticMenu_hidden_until";
+
+  let visible=true;
+  let sequence="";
+  let index=0;
+  let token=0;
+  let restoreTimer;
+
+  const promos=[
+    {
+      image:"https://cdn.jsdelivr.net/gh/StaticQuasar931/Images@main/GoogleForm.png",
+      href:"https://sites.google.com/view/staticquasar931/google-form?utm_source=visualseo_"+slug,
+      alt:"StaticQuasar931 Google Form"
+    },
+    {
+      image:"https://cdn.jsdelivr.net/gh/StaticQuasar931/Images@main/Join_Our_DC_StaticQuassar931_lcplrf.png",
+      href:"https://discord.gg/DP2hM7RRhR?utm_source=visualseo_"+slug,
+      alt:"StaticQuasar931 Discord"
+    },
+    {
+      image:"https://cdn.jsdelivr.net/gh/StaticQuasar931/Images@main/Follow-us--IG",
+      href:"https://www.instagram.com/freeschoolgamepage/?utm_source=visualseo_"+slug,
+      alt:"StaticQuasar931 Instagram"
+    }
+  ];
+
+  function hiddenUntil(){
+    try{return Number(localStorage.getItem(key))||0}
+    catch(e){return 0}
+  }
+
+  function refreshMenu(){
+    menu.classList.toggle(
+      "visual-seo-hidden",
+      !visible||Date.now()<hiddenUntil()
+    );
+  }
+
+  close.addEventListener("click",()=>{
+    const until=Date.now()+180000;
+    try{localStorage.setItem(key,String(until))}
+    catch(e){}
+    refreshMenu();
+    clearTimeout(restoreTimer);
+    restoreTimer=setTimeout(refreshMenu,180000);
+  });
+
+  const delay=ms=>new Promise(r=>setTimeout(r,ms));
+
+  async function cycle(id){
+    while(visible&&id===token){
+      const promo=promos[index];
+
+      link.href=promo.href;
+      image.src=promo.image;
+      image.alt=promo.alt;
+
+      slide.classList.remove("slide-out");
+      void slide.offsetWidth;
+      slide.classList.add("slide-in");
+      slide.style.pointerEvents="auto";
+
+      await delay(7000);
+      if(!visible||id!==token)return;
+
+      slide.classList.remove("slide-in");
+      void slide.offsetWidth;
+      slide.classList.add("slide-out");
+
+      await delay(2000);
+      if(!visible||id!==token)return;
+
+      slide.style.pointerEvents="none";
+      await delay(20000);
+      if(!visible||id!==token)return;
+
+      index=(index+1)%promos.length;
+    }
+  }
+
+  function toggle(){
+    visible=!visible;
+    token++;
+    refreshMenu();
+    slide.classList.toggle("visual-seo-hidden",!visible);
+
+    if(visible){
+      cycle(token);
+    }else{
+      slide.style.pointerEvents="none";
+      slide.classList.remove("slide-in","slide-out");
+    }
+  }
+
+  document.addEventListener("keydown",event=>{
+    sequence=(sequence+String(event.key||"").toLowerCase()).slice(-3);
+    if(sequence==="yui"){
+      toggle();
+      sequence="";
+    }
+  },true);
+
+  refreshMenu();
+
+  const remaining=hiddenUntil()-Date.now();
+  if(remaining>0){
+    restoreTimer=setTimeout(refreshMenu,remaining);
+  }
+
+  cycle(++token);
+})();
+</script>
+
+</body>
+</html>
+
